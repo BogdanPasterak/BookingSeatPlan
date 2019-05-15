@@ -15,6 +15,7 @@ namespace BookingSeatPlan
     public partial class Start : Form
     {
         List<Course> courses;
+
         public Start()
         {
             InitializeComponent();
@@ -61,6 +62,8 @@ namespace BookingSeatPlan
                     Debug.WriteLine(course);
                 }
                 saveToolStripMenuItem.Enabled = true;
+                AddItemToCombo();
+                EditCourses();
             }
             catch (Exception ex)
             {
@@ -69,9 +72,27 @@ namespace BookingSeatPlan
             }
         }
 
+        private void AddItemToCombo()
+        {
+            List<string> names = new List<string>();
+            names.Add("Not any");
 
+            foreach (Course course in courses)
+            {
+                if (!names.Contains(course.Name))
+                {
+                    names.Add(course.Name);
+                }
+            }
 
+            cbCourses.Items.Clear();
+            foreach (string name in names)
+            {
+                cbCourses.Items.Add(name);
+            }
+            cbCourses.SelectedIndex = 0;
 
+        }
 
         private void EditCourses()
         {
@@ -128,9 +149,11 @@ namespace BookingSeatPlan
 
         private void CourseAdded()
         {
-            string message = "Cours " + txtCourseName.Text + " added\n";
+            Course course = courses[courses.Count - 1];
+            string message = "Cours " + course.Name + " added\n";
             message += "On position " + courses.Count.ToString();
             MessageBox.Show(message, "Adding");
+            AddItemToCombo();
         }
 
         private void btnNextCoutse_Click(object sender, EventArgs e)
@@ -173,5 +196,10 @@ namespace BookingSeatPlan
             }
         }
 
+        private void cbCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((sender as ComboBox).SelectedIndex > 0)
+                MessageBox.Show((sender as ComboBox).SelectedItem.ToString());
+        }
     }
 }

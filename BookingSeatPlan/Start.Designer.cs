@@ -42,6 +42,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtCourseName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbCourses = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.pnlNewCorses.SuspendLayout();
             this.SuspendLayout();
@@ -70,14 +72,14 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -85,18 +87,20 @@
             // 
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // pnlNewCorses
             // 
+            this.pnlNewCorses.Controls.Add(this.cbCourses);
+            this.pnlNewCorses.Controls.Add(this.label4);
             this.pnlNewCorses.Controls.Add(this.btnNextCoutse);
             this.pnlNewCorses.Controls.Add(this.txtCourseCost);
             this.pnlNewCorses.Controls.Add(this.label3);
@@ -106,7 +110,7 @@
             this.pnlNewCorses.Controls.Add(this.label1);
             this.pnlNewCorses.Location = new System.Drawing.Point(12, 27);
             this.pnlNewCorses.Name = "pnlNewCorses";
-            this.pnlNewCorses.Size = new System.Drawing.Size(436, 160);
+            this.pnlNewCorses.Size = new System.Drawing.Size(436, 190);
             this.pnlNewCorses.TabIndex = 1;
             this.pnlNewCorses.Visible = false;
             // 
@@ -174,6 +178,28 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Enter the Course name or\r\nFinish to end data entry";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(12, 112);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(272, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Choosing a course will open the booking panel";
+            // 
+            // cbCourses
+            // 
+            this.cbCourses.FormattingEnabled = true;
+            this.cbCourses.Items.AddRange(new object[] {
+            "Not any"});
+            this.cbCourses.Location = new System.Drawing.Point(32, 143);
+            this.cbCourses.Name = "cbCourses";
+            this.cbCourses.Size = new System.Drawing.Size(223, 21);
+            this.cbCourses.TabIndex = 8;
+            this.cbCourses.Text = "Not any";
+            this.cbCourses.SelectedIndexChanged += new System.EventHandler(this.cbCourses_SelectedIndexChanged);
+            // 
             // Start
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,6 +237,8 @@
         private System.Windows.Forms.TextBox txtCourseName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnNextCoutse;
+        private System.Windows.Forms.ComboBox cbCourses;
+        private System.Windows.Forms.Label label4;
     }
 }
 
