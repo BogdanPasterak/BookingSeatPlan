@@ -46,16 +46,8 @@ namespace BookingSeatPlan
                     box.Size = new Size(20, 20);
                     box.Tag = counter;
                     box.Click += Box_Click;
-                    if (courses[index].Seat[seat] == 'B')
-                    {
-                        box.Text = "B";
-                        box.BackColor = Color.LightGreen;
-                    }
-                    else
-                    {
-                        box.Text = (seat + 1).ToString();
-                        box.BackColor = Color.LightGray;
-                    }
+
+                    BookedBox(box, (courses[index].Seat[seat] == 'B'), seat);
                     pnlView.Controls.Add(box);
                     counter++;
                 }
@@ -101,7 +93,47 @@ namespace BookingSeatPlan
 
         private void Box_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine((sender as TextBox).Tag.ToString());
+            //Debug.WriteLine((sender as TextBox).Tag.ToString());
+            TextBox box = sender as TextBox;
+            int nr = int.Parse(box.Tag.ToString());
+            int row = nr / 12;
+            int seat = nr % 12;
+            Change = true;
+            if(box.Text == "B")
+            {
+                // change view
+                BookedBox(box, false, seat);
+                // change model
+                char[] seats = courses[coursesIndex[row]].Seat.ToCharArray();
+                seats[seat] = 'F';
+                courses[coursesIndex[row]].Seat = new string(seats);
+            }
+            else
+            {
+                // change view
+                BookedBox(box, true, seat);
+                // change model
+                char[] seats = courses[coursesIndex[row]].Seat.ToCharArray();
+                seats[seat] = 'B';
+                courses[coursesIndex[row]].Seat = new string(seats);
+            }
+            Debug.WriteLine(courses[coursesIndex[row]].Seat);
+
+
+        }
+
+        private void BookedBox(TextBox box, bool booked, int seat)
+        {
+            if (booked)
+            {
+                box.Text = "B";
+                box.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                box.Text = (seat + 1).ToString();
+                box.BackColor = Color.LightGray;
+            }
         }
 
         private void SortCourses()
