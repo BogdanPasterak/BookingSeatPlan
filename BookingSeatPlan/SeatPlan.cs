@@ -15,19 +15,24 @@ namespace BookingSeatPlan
     {
         public bool Change { get; set; }
         List<Course> courses;
+        List<Booked> bookeds;
         string courseName;
         int[] coursesIndex;
 
         public SeatPlan(List<Course> courses, string courseName)
         {
             InitializeComponent();
+            // init data
             Change = false;
+            bookeds = new List<Booked>();
             this.courses = courses;
             this.courseName = courseName;
+            // start seting
             ChoiseCourses();
             InitView();
         }
 
+        // build view
         private void InitView()
         {
             lblCourseName.Text = courseName;
@@ -35,9 +40,11 @@ namespace BookingSeatPlan
             int counter = 0;
             int index;
 
+            // loop for courses with same name
             for (int nr = 0; nr < coursesIndex.Length; nr++)
             {
                 index = coursesIndex[nr];
+                // loop of seat
                 for (int seat = 0; seat < 12; seat++)
                 {
                     TextBox box = new TextBox();
@@ -51,6 +58,7 @@ namespace BookingSeatPlan
                     pnlView.Controls.Add(box);
                     counter++;
                 }
+                // add date and cost label
                 Label date = new Label();
                 date.Location = new Point(265, nr * 25);
                 date.Text = courses[index].Date;
@@ -65,6 +73,7 @@ namespace BookingSeatPlan
             }
         }
 
+        // create array with indexes of courses
         private void ChoiseCourses()
         {
             int counter = 0;
@@ -91,6 +100,7 @@ namespace BookingSeatPlan
 
         }
 
+        // when click on seat...
         private void Box_Click(object sender, EventArgs e)
         {
             //Debug.WriteLine((sender as TextBox).Tag.ToString());
@@ -98,8 +108,13 @@ namespace BookingSeatPlan
             int nr = int.Parse(box.Tag.ToString());
             int row = nr / 12;
             int seat = nr % 12;
+            //
             Change = true;
-            if(box.Text == "B")
+            Booked booked = new Booked();
+            booked.IndexCourse = coursesIndex[row];
+            booked.SeatNumber = seat;
+
+            if (box.Text == "B")
             {
                 // change view
                 BookedBox(box, false, seat);
@@ -107,6 +122,7 @@ namespace BookingSeatPlan
                 char[] seats = courses[coursesIndex[row]].Seat.ToCharArray();
                 seats[seat] = 'F';
                 courses[coursesIndex[row]].Seat = new string(seats);
+                booked.Occupied = false;
             }
             else
             {
@@ -116,12 +132,16 @@ namespace BookingSeatPlan
                 char[] seats = courses[coursesIndex[row]].Seat.ToCharArray();
                 seats[seat] = 'B';
                 courses[coursesIndex[row]].Seat = new string(seats);
+                booked.Occupied = true;
             }
             Debug.WriteLine(courses[coursesIndex[row]].Seat);
-
+            Debug.WriteLine(booked);
+            // add to list of booked place
+            bookeds.Add(booked);
 
         }
 
+        // change view of seat
         private void BookedBox(TextBox box, bool booked, int seat)
         {
             if (booked)
@@ -136,6 +156,7 @@ namespace BookingSeatPlan
             }
         }
 
+        // sort array by date of courses
         private void SortCourses()
         {
             Array.Sort(coursesIndex,
@@ -147,7 +168,7 @@ namespace BookingSeatPlan
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            //Change = textBox1.Text;
+            // close form and send Change property to Start form
         }
     }
 }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Booked.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="CourseException.cs" />
