@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookingSeatPlan
 {
-    class Course
+    public class Course
     {
         public string Name { get; set; }
         public string Date { get; set; }

@@ -15,6 +15,7 @@ namespace BookingSeatPlan
     public partial class Start : Form
     {
         List<Course> courses;
+        bool change = false;
 
         public Start()
         {
@@ -30,7 +31,7 @@ namespace BookingSeatPlan
                 IOFile.NewFile();
                 StartSetting();
                 courses = new List<Course>();
-                EditCourses();
+                ShowEditCourses();
             }
             catch (CourseException ce)
             {
@@ -63,12 +64,34 @@ namespace BookingSeatPlan
                 }
                 saveToolStripMenuItem.Enabled = true;
                 AddItemToCombo();
-                EditCourses();
+                ShowEditCourses();
             }
             catch (Exception ex)
             {
                 //Error(2);
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void cbCourses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // if choise course name
+            if (cbCourses.SelectedIndex > 0)
+            {
+                string courseName = cbCourses.SelectedItem.ToString();
+                // open new form with parametrs and get answer if any change
+                //MessageBox.Show((sender as ComboBox).SelectedItem.ToString());
+                SeatPlan seatPlan = new SeatPlan(courses, courseName);
+                if (seatPlan.ShowDialog() == DialogResult.OK)
+                {
+                    Debug.WriteLine(seatPlan.Change.ToString());
+                    cbCourses.SelectedIndex = 0;
+                }
+                
             }
         }
 
@@ -94,7 +117,7 @@ namespace BookingSeatPlan
 
         }
 
-        private void EditCourses()
+        private void ShowEditCourses()
         {
             pnlNewCorses.Visible = true;
         }
@@ -196,10 +219,5 @@ namespace BookingSeatPlan
             }
         }
 
-        private void cbCourses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ((sender as ComboBox).SelectedIndex > 0)
-                MessageBox.Show((sender as ComboBox).SelectedItem.ToString());
-        }
     }
 }

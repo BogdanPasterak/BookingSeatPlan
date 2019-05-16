@@ -70,14 +70,14 @@ namespace BookingSeatPlan
             return courses;
         }
 
-        private static string RemoveQuote(string v)
+        private static string RemoveQuote(string s)
         {
-            return v.Trim().Replace("\"", "").Trim();
+            return s.Trim().Replace("\"", "").Trim();
         }
 
-        private static string AddQuotes(string name)
+        private static string AddQuotes(string s)
         {
-            return "\"" + name + "\"";
+            return "\"" + s + "\"";
         }
 
     }
