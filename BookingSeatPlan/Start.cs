@@ -226,6 +226,14 @@ namespace BookingSeatPlan
                 {
                     Error(6);
                 }
+                else if (courses.Count >= 100)
+                {
+                    MessageBox.Show("Maximum 100 Coures");
+                }
+                else if (NumberCourses(txtCourseName.Text) >= 10)
+                {
+                    MessageBox.Show("Maximum 10 Coures with the same name");
+                }
                 else
                 {
                     courses.Add(new Course(txtCourseName.Text, dtpCourseDate.Text, txtCourseCost.Text, "FFFFFFFFFFFF"));
@@ -238,5 +246,17 @@ namespace BookingSeatPlan
             }
         }
 
+        private int NumberCourses(string name)
+        {
+            int number = 0;
+            foreach (Course course in courses)
+            {
+                if (course.Name == name)
+                {
+                    number++;
+                }
+            }
+            return number;
+        }
     }
 }
