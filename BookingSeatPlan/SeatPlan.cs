@@ -134,8 +134,8 @@ namespace BookingSeatPlan
                 courses[coursesIndex[row]].Seat = new string(seats);
                 booked.Occupied = true;
             }
-            Debug.WriteLine(courses[coursesIndex[row]].Seat);
-            Debug.WriteLine(booked);
+            //Debug.WriteLine(courses[coursesIndex[row]].Seat);
+            //Debug.WriteLine(booked);
             // add to list of booked place
             bookeds.Add(booked);
 

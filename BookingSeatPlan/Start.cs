@@ -41,14 +41,21 @@ namespace BookingSeatPlan
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Save();
+        }
+
+        private void Save()
+        {
             try
             {
                 IOFile.WriteFile(Converter.CoursesToStrings(courses));
+                MessageBox.Show("Data has been saved", "Save");
             }
             catch (CourseException ce)
             {
                 MessageBox.Show(ce.Message, "Error");
             }
+
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,6 +82,15 @@ namespace BookingSeatPlan
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (change)
+            {
+                if( MessageBox.Show("Do you want to save changes", "Exit",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Save();
+                }
+            }
+            Close();
         }
 
         private void cbCourses_SelectedIndexChanged(object sender, EventArgs e)
@@ -88,7 +104,9 @@ namespace BookingSeatPlan
                 SeatPlan seatPlan = new SeatPlan(courses, courseName);
                 if (seatPlan.ShowDialog() == DialogResult.OK)
                 {
-                    Debug.WriteLine(seatPlan.Change.ToString());
+                    //Debug.WriteLine(seatPlan.Change.ToString());
+                    // any changes
+                    change = change || seatPlan.Change;
                     cbCourses.SelectedIndex = 0;
                 }
                 
@@ -215,6 +233,7 @@ namespace BookingSeatPlan
                     txtCourseCost.Clear();
                     txtCourseName.Focus();
                     txtCourseName.SelectAll();
+                    change = true;
                 }
             }
         }
