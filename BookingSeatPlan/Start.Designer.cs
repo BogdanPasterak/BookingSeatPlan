@@ -72,14 +72,14 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -87,21 +87,19 @@
             // 
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // pnlNewCorses
             // 
-            this.pnlNewCorses.Controls.Add(this.cbCourses);
-            this.pnlNewCorses.Controls.Add(this.label4);
             this.pnlNewCorses.Controls.Add(this.btnNextCoutse);
             this.pnlNewCorses.Controls.Add(this.txtCourseCost);
             this.pnlNewCorses.Controls.Add(this.label3);
@@ -111,7 +109,7 @@
             this.pnlNewCorses.Controls.Add(this.label1);
             this.pnlNewCorses.Location = new System.Drawing.Point(12, 27);
             this.pnlNewCorses.Name = "pnlNewCorses";
-            this.pnlNewCorses.Size = new System.Drawing.Size(436, 190);
+            this.pnlNewCorses.Size = new System.Drawing.Size(436, 140);
             this.pnlNewCorses.TabIndex = 1;
             this.pnlNewCorses.Visible = false;
             // 
@@ -120,7 +118,7 @@
             this.cbCourses.FormattingEnabled = true;
             this.cbCourses.Items.AddRange(new object[] {
             "Not any"});
-            this.cbCourses.Location = new System.Drawing.Point(32, 143);
+            this.cbCourses.Location = new System.Drawing.Point(44, 201);
             this.cbCourses.Name = "cbCourses";
             this.cbCourses.Size = new System.Drawing.Size(223, 21);
             this.cbCourses.TabIndex = 8;
@@ -131,7 +129,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 112);
+            this.label4.Location = new System.Drawing.Point(24, 170);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(272, 13);
             this.label4.TabIndex = 7;
@@ -207,7 +205,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(460, 239);
+            this.Controls.Add(this.cbCourses);
             this.Controls.Add(this.pnlNewCorses);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Start";
