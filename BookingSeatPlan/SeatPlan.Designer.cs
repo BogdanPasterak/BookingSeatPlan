@@ -34,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pnlView = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnClose
@@ -46,7 +46,6 @@
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close\r\nForm";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // label1
             // 
@@ -92,14 +91,15 @@
             this.pnlView.Size = new System.Drawing.Size(444, 279);
             this.pnlView.TabIndex = 5;
             // 
-            // button1
+            // btnPrint
             // 
-            this.button1.Location = new System.Drawing.Point(140, 359);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 43);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Print All Booking\r\nForms";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPrint.Location = new System.Drawing.Point(140, 359);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(97, 43);
+            this.btnPrint.TabIndex = 6;
+            this.btnPrint.Text = "Print All Booking\r\nForms";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // SeatPlan
             // 
@@ -107,7 +107,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(545, 443);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.pnlView);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -130,6 +130,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel pnlView;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

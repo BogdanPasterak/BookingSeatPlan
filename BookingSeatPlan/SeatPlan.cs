@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace BookingSeatPlan
         List<Booked> bookeds;
         string courseName;
         int[] coursesIndex;
+        static string[] textToPrintHeder, textToPrintDate, textToPrintCost;
 
         public SeatPlan(List<Course> courses, string courseName)
         {
@@ -137,7 +139,11 @@ namespace BookingSeatPlan
             //Debug.WriteLine(courses[coursesIndex[row]].Seat);
             //Debug.WriteLine(booked);
             // add to list of booked place
-            bookeds.Add(booked);
+            if (!bookeds.Contains(booked) && booked.Occupied)
+            {
+                bookeds.Add(booked);
+                Debug.WriteLine("bookeds size = " + bookeds.Count.ToString());
+            }
 
         }
 
@@ -166,9 +172,61 @@ namespace BookingSeatPlan
             ); 
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void btnPrint_Click(object sender, EventArgs e)
         {
-            // close form and send Change property to Start form
+            string s = "";
+            textToPrintHeder = new string[bookeds.Count];
+            textToPrintDate = new string[bookeds.Count];
+            textToPrintCost = new string[bookeds.Count];
+            int index = 0;
+            foreach (Booked booked in bookeds)
+            {
+                textToPrintHeder[index] = "BOOKING NUMBER:\t" + (index + 1).ToString() + "\t";
+                textToPrintHeder[index] += courses[booked.IndexCourse].Name;
+                textToPrintDate[index] = courses[booked.IndexCourse].Date;
+                textToPrintCost[index] = courses[booked.IndexCourse].Cost;
+                index++;
+            }
+
+            // print to printer
+            PrintDialog printDlg = new PrintDialog();
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.DocumentName = "Print Holidays";
+            printDlg.Document = printDoc;
+            printDlg.AllowSelection = true;
+            printDlg.AllowSomePages = true;
+            //Call ShowDialog
+            if (printDlg.ShowDialog() == DialogResult.OK)
+            {
+                printDoc.PrintPage += new PrintPageEventHandler(pd_PrintPage);
+                printDoc.Print();
+            }
+
         }
+
+        private static void pd_PrintPage(object sender, PrintPageEventArgs ev)
+        {
+            Font font = new Font("Consolas", 10);
+            Font fontBold = new Font("Consolas", 10, FontStyle.Bold);
+            Font fontHeder = new Font("Consolas", 15, FontStyle.Bold);
+            string line = "-------------------------------------------------------------------------------------";
+
+            //ev.Graphics.DrawPie(new Pen(Brushes.Red, 7), new RectangleF(new PointF(20, 10), new Size(100, 80)), 30, 320);
+            //ev.Graphics.DrawEllipse(new Pen(Brushes.Blue, 2), new RectangleF(new PointF(80, 25), new Size(10, 10)));
+            for (int i = 0; i < textToPrintHeder.Length; i++)
+            {
+                ev.Graphics.DrawString(textToPrintHeder[i], fontHeder, Brushes.Black, ev.MarginBounds.Left + 10, i * 100);
+                ev.Graphics.DrawString("Date:", fontBold, Brushes.Black, ev.MarginBounds.Left + 180, i * 100 + 35);
+                ev.Graphics.DrawString(textToPrintDate[i], font, Brushes.Black, ev.MarginBounds.Left + 250, i * 100 + 35);
+                ev.Graphics.DrawString("Cost:", fontBold, Brushes.Black, ev.MarginBounds.Left + 180, i * 100 + 60);
+                ev.Graphics.DrawString(textToPrintCost[i], font, Brushes.Black, ev.MarginBounds.Left + 250, i * 100 + 60);
+                ev.Graphics.DrawString(line, font, Brushes.Black, ev.MarginBounds.Left, i * 100 + 80);
+            }
+            //ev.Graphics.DrawString(textToPrint, font, Brushes.Black, ev.MarginBounds.Left, 0, new StringFormat());
+            //ev.Graphics.DrawString(textToPrintHeder, fontBold, Brushes.Black, ev.MarginBounds.Left, 0, new StringFormat());
+            //ev.Graphics.DrawString(textToPrintTitle, fontHeder, Brushes.Black, ev.MarginBounds.Left, 0, new StringFormat());
+        }
+
+
     }
 }

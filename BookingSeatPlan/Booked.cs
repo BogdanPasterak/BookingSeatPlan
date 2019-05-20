@@ -12,10 +12,20 @@ namespace BookingSeatPlan
         public int SeatNumber { get; set; }
         public bool Occupied { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            var booked = obj as Booked;
+            return booked != null &&
+                   IndexCourse == booked.IndexCourse &&
+                   SeatNumber == booked.SeatNumber &&
+                   Occupied == booked.Occupied;
+        }
+
         public override string ToString()
         {
             return "Booked:[index:" + IndexCourse.ToString() +
                 ", seat:" + SeatNumber.ToString() + ", Occuped:" + Occupied.ToString() + "]";
         }
+
     }
 }
