@@ -164,49 +164,49 @@ namespace BookingSeatPlan
             {
                 StartSetting();
                 saveToolStripMenuItem.Enabled = true;
+                return;
             }
             // for test only auto generate course
-            else if (txtCourseName.Text.Length == 0)
+            if (txtCourseName.Text.Length == 0)
             {
                 Course course = Course.GetExample();
                 Debug.WriteLine(course);
-                courses.Add(course);
-                CourseAdded();
+                txtCourseName.Text = course.Name;
+                dtpCourseDate.Text = course.Date;
+                txtCourseCost.Text = course.Cost;
+            }
+
+            if (!Validator.NameCourse(txtCourseName))
+            {
+                string message = "Error : 005\nInvalid Name of Course";
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!Validator.DateCourse(dtpCourseDate))
+            {
+                string message = "Error : 004\nInvalid Date";
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!Validator.CostCourse(txtCourseCost))
+            {
+                string message = "Error : 006\nInvalid Cost of Course";
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (courses.Count >= 100)
+            {
+                MessageBox.Show("Error : 007\nMaximum 100 Coures");
+            }
+            else if (NumberCourses(txtCourseName.Text) >= 10)
+            {
+                MessageBox.Show("Error : 008\nMaximum 10 Coures with the same name");
             }
             else
             {
-                if (!Validator.NameCourse(txtCourseName))
-                {
-                    string message = "Error : 005\nInvalid Name of Course";
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (!Validator.DateCourse(dtpCourseDate))
-                {
-                    string message = "Error : 004\nInvalid Date";
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (!Validator.CostCourse(txtCourseCost))
-                {
-                    string message = "Error : 006\nInvalid Cost of Course";
-                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (courses.Count >= 100)
-                {
-                    MessageBox.Show("Maximum 100 Coures");
-                }
-                else if (NumberCourses(txtCourseName.Text) >= 10)
-                {
-                    MessageBox.Show("Maximum 10 Coures with the same name");
-                }
-                else
-                {
-                    courses.Add(new Course(txtCourseName.Text, dtpCourseDate.Text, txtCourseCost.Text, "FFFFFFFFFFFF"));
-                    CourseAdded();
-                    txtCourseCost.Clear();
-                    txtCourseName.Focus();
-                    txtCourseName.SelectAll();
-                    change = true;
-                }
+                courses.Add(new Course(txtCourseName.Text, dtpCourseDate.Text, txtCourseCost.Text, "FFFFFFFFFFFF"));
+                CourseAdded();
+                txtCourseCost.Clear();
+                txtCourseName.Focus();
+                txtCourseName.SelectAll();
+                change = true;
             }
         }
 
