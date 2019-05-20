@@ -140,45 +140,6 @@ namespace BookingSeatPlan
             pnlNewCorses.Visible = true;
         }
 
-        // Error message display
-        private void Error(int v)
-        {
-            string message;
-
-            switch (v)
-            {
-                case 1:
-                    message = "Error : 001\n";
-                    message += "File incorrect format or\nmissing or dialog cancelled";
-                    break;
-                case 2:
-                    message = "Error : 002\n";
-                    message += "File open error or dialog cancelled";
-                    break;
-                case 3:
-                    message = "Error : 003\n";
-                    message += "File save error";
-                    break;
-                case 4:
-                    message = "Error : 004\n";
-                    message += "Invalid Date";
-                    break;
-                case 5:
-                    message = "Error : 005\n";
-                    message += "Invalid Name of Course";
-                    break;
-                case 6:
-                    message = "Error : 006\n";
-                    message += "Invalid Cost of Course";
-                    break;
-                default:
-                    message = "Error : 100\n";
-                    message += "Unknown error";
-                    break;
-            }
-
-            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
 
         private void StartSetting()
         {
@@ -216,15 +177,18 @@ namespace BookingSeatPlan
             {
                 if (!Validator.NameCourse(txtCourseName))
                 {
-                    Error(5);
+                    string message = "Error : 005\nInvalid Name of Course";
+                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!Validator.DateCourse(dtpCourseDate))
                 {
-                    Error(4);
+                    string message = "Error : 004\nInvalid Date";
+                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!Validator.CostCourse(txtCourseCost))
                 {
-                    Error(6);
+                    string message = "Error : 006\nInvalid Cost of Course";
+                    MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (courses.Count >= 100)
                 {
