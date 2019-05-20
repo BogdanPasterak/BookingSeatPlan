@@ -62,7 +62,7 @@ namespace BookingSeatPlan
                         "\nDate:" + date +
                         "\nCost:" + cost +
                         "\nSeat:" + seat );
-            break;
+                    break;
                 }
             }
 

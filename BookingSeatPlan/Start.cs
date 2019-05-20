@@ -73,15 +73,15 @@ namespace BookingSeatPlan
                 AddItemToCombo();
                 ShowEditCourses();
             }
-            catch (Exception ex)
+            catch (CourseException ce)
             {
-                //Error(2);
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ce.Message, "Error");
             }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // if any change ask about saving that
             if (change)
             {
                 if( MessageBox.Show("Do you want to save changes", "Exit",
@@ -100,7 +100,6 @@ namespace BookingSeatPlan
             {
                 string courseName = cbCourses.SelectedItem.ToString();
                 // open new form with parametrs and get answer if any change
-                //MessageBox.Show((sender as ComboBox).SelectedItem.ToString());
                 SeatPlan seatPlan = new SeatPlan(courses, courseName);
                 if (seatPlan.ShowDialog() == DialogResult.OK)
                 {
