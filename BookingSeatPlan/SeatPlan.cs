@@ -16,7 +16,7 @@ namespace BookingSeatPlan
     {
         public bool Change { get; set; }
         List<Course> courses;
-        List<Booked> bookeds;
+        List<Booked> bookings;
         string courseName;
         int[] coursesIndex;
         static string[] textToPrintHeder, textToPrintDate, textToPrintCost;
@@ -26,7 +26,7 @@ namespace BookingSeatPlan
             InitializeComponent();
             // init data
             Change = false;
-            bookeds = new List<Booked>();
+            bookings = new List<Booked>();
             this.courses = courses;
             this.courseName = courseName;
             // start seting
@@ -139,10 +139,10 @@ namespace BookingSeatPlan
             //Debug.WriteLine(courses[coursesIndex[row]].Seat);
             //Debug.WriteLine(booked);
             // add to list of booked place
-            if (!bookeds.Contains(booked) && booked.Occupied)
+            if (!bookings.Contains(booked) && booked.Occupied)
             {
-                bookeds.Add(booked);
-                Debug.WriteLine("bookeds size = " + bookeds.Count.ToString());
+                bookings.Add(booked);
+                Debug.WriteLine("bookeds size = " + bookings.Count.ToString());
             }
 
         }
@@ -175,11 +175,11 @@ namespace BookingSeatPlan
         private void btnPrint_Click(object sender, EventArgs e)
         {
             string s = "";
-            textToPrintHeder = new string[bookeds.Count];
-            textToPrintDate = new string[bookeds.Count];
-            textToPrintCost = new string[bookeds.Count];
+            textToPrintHeder = new string[bookings.Count];
+            textToPrintDate = new string[bookings.Count];
+            textToPrintCost = new string[bookings.Count];
             int index = 0;
-            foreach (Booked booked in bookeds)
+            foreach (Booked booked in bookings)
             {
                 textToPrintHeder[index] = "BOOKING NUMBER:\t" + (index + 1).ToString() + "\t";
                 textToPrintHeder[index] += courses[booked.IndexCourse].Name;
