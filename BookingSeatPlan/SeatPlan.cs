@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookingSeatPlan.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,7 @@ namespace BookingSeatPlan
         List<Booked> bookings;
         string courseName;
         int[] coursesIndex;
-        static string[] textToPrintHeder, textToPrintDate, textToPrintCost;
+        static string[] textToPrintHeder, textToPrintDate, textToPrintCost, seatToPrint;
 
         public SeatPlan(List<Course> courses, string courseName)
         {
@@ -178,6 +179,7 @@ namespace BookingSeatPlan
             textToPrintHeder = new string[bookings.Count];
             textToPrintDate = new string[bookings.Count];
             textToPrintCost = new string[bookings.Count];
+            seatToPrint = new string[bookings.Count];
             int index = 0;
             foreach (Booked booked in bookings)
             {
@@ -185,6 +187,7 @@ namespace BookingSeatPlan
                 textToPrintHeder[index] += courses[booked.IndexCourse].Name;
                 textToPrintDate[index] = courses[booked.IndexCourse].Date;
                 textToPrintCost[index] = courses[booked.IndexCourse].Cost;
+                seatToPrint[index] = courses[booked.IndexCourse].Seat;
                 index++;
             }
 
@@ -210,17 +213,23 @@ namespace BookingSeatPlan
             Font fontBold = new Font("Consolas", 10, FontStyle.Bold);
             Font fontHeder = new Font("Consolas", 15, FontStyle.Bold);
             string line = "-------------------------------------------------------------------------------------";
+            Image chair = Resources.chair;
+            Image user = Resources.user;
 
             //ev.Graphics.DrawPie(new Pen(Brushes.Red, 7), new RectangleF(new PointF(20, 10), new Size(100, 80)), 30, 320);
             //ev.Graphics.DrawEllipse(new Pen(Brushes.Blue, 2), new RectangleF(new PointF(80, 25), new Size(10, 10)));
             for (int i = 0; i < textToPrintHeder.Length; i++)
             {
                 ev.Graphics.DrawString(textToPrintHeder[i], fontHeder, Brushes.Black, ev.MarginBounds.Left + 10, i * 100);
-                ev.Graphics.DrawString("Date:", fontBold, Brushes.Black, ev.MarginBounds.Left + 180, i * 100 + 35);
-                ev.Graphics.DrawString(textToPrintDate[i], font, Brushes.Black, ev.MarginBounds.Left + 250, i * 100 + 35);
-                ev.Graphics.DrawString("Cost:", fontBold, Brushes.Black, ev.MarginBounds.Left + 180, i * 100 + 60);
-                ev.Graphics.DrawString(textToPrintCost[i], font, Brushes.Black, ev.MarginBounds.Left + 250, i * 100 + 60);
+                ev.Graphics.DrawString("Date:", fontBold, Brushes.Black, ev.MarginBounds.Left , i * 100 + 35);
+                ev.Graphics.DrawString(textToPrintDate[i], font, Brushes.Black, ev.MarginBounds.Left + 60, i * 100 + 35);
+                ev.Graphics.DrawString("Cost:", fontBold, Brushes.Black, ev.MarginBounds.Left, i * 100 + 60);
+                ev.Graphics.DrawString(textToPrintCost[i], font, Brushes.Black, ev.MarginBounds.Left + 60, i * 100 + 60);
                 ev.Graphics.DrawString(line, font, Brushes.Black, ev.MarginBounds.Left, i * 100 + 80);
+                char[] seat = seatToPrint[i].ToCharArray();
+                for (int j = 0; j < 12; j++)
+                    ev.Graphics.DrawImage(((seat[j] == 'B') ? user: chair), 250 + j * 47, i * 100 + 25);
+
             }
             //ev.Graphics.DrawString(textToPrint, font, Brushes.Black, ev.MarginBounds.Left, 0, new StringFormat());
             //ev.Graphics.DrawString(textToPrintHeder, fontBold, Brushes.Black, ev.MarginBounds.Left, 0, new StringFormat());
